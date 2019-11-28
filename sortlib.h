@@ -6,8 +6,8 @@
 
 using namespace std;
 
-// Insertion Sort
 void InsertionSort(vector <long int> & numbers, long int N){
+// Insertion Sort
     long int aux, i, j;
 
     for (i = 1; i < N; i++){
@@ -127,6 +127,40 @@ void QuickSort(vector <long int> & numbers, long int p, long int r){
         long int q = QuickParticiona(numbers, p, r);
         QuickSort(numbers, p, q);
         QuickSort(numbers, (q + 1), r);
+    }
+}
+
+/* Start of Random Quick Sort Algorithm */
+long int QuickRParticiona(vector <long int> & numbers, long int p, long int r){
+    int x, j, i, aux;
+    i = p - 1;
+    j = r + 1;
+    srand(time(NULL));
+    x = numbers[p + rand() % (r-p)];
+    //x = numbers[(p+r)/2];
+    while (i < j){
+        do {
+            i = i + 1;
+        } while (numbers[i] < x);
+        do {
+            j = j - 1;
+        } while (numbers[j] > x);
+
+        if (i < j){
+            aux = numbers[i];
+            numbers[i] = numbers[j];
+            numbers[j] = aux;
+        }
+    }
+
+    return j;
+}
+
+void QuickSortRandom(vector <long int> & numbers, long int p, long int r){
+    if (r > p){
+        long int q = QuickRParticiona(numbers, p, r);
+        QuickSortRandom(numbers, p, q);
+        QuickSortRandom(numbers, (q + 1), r);
     }
 }
 
